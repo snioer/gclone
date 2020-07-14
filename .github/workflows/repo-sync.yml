@@ -1,0 +1,20 @@
+name: sync repo
+
+on:
+  push:
+    branches:
+    - master
+  schedule:
+  - cron:  "19 */1 * * *"
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: repo-sync
+      uses: repo-sync/github-sync@v2
+      with:
+        source_repo: "donwa/gclone"
+        source_branch: "master"
+        destination_branch: "master"
+        github_token: ${{ secrets.B_TOKEN }}
